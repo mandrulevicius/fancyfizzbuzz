@@ -1,0 +1,12 @@
+{
+  "name": "fancyfizzbuzz",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "practice project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Minos",
+  "license": "MIT"
+}
