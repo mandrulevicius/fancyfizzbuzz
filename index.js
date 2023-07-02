@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import tester from './tester.js';
+// REMINDER - COMMIT MORE OFTEN
 
 // first, test when customInputs feature is missing.
 //  should work fine since the flag is off
@@ -10,7 +11,7 @@ import tester from './tester.js';
 
 const featureFlags = {
   main: true,
-  customInputs: false
+  customInputs: true
 };
 const features = {};
 // TODO extract into function:

@@ -6,6 +6,7 @@ async function runPrelaunchTests(features) {
     results[name] = await testFeature(name, features[name]);
     if (!results[name].pass) results.pass = false;
   }
+  if (Object.keys(features).length === 0) results.pass = false;
   return results;
 }
 
@@ -17,6 +18,7 @@ async function testFeature(name, feature) {
     results[fileName] = await testFile(name, fileName, feature[fileName]);
     if (!results[fileName].pass) results.pass = false;
   }
+  if (Object.keys(feature).length === 0) results.pass = false;
   return results;
 }
 
@@ -27,6 +29,7 @@ async function testFile(featureName, name, file) {
     results[functionName] = testFunction(file[functionName], fileTests.tests[functionName]);
     if (!results[functionName].pass) results.pass = false;
   }
+  if (Object.keys(file).length === 0) results.pass = false;
   return results;
 }
 
