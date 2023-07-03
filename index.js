@@ -7,26 +7,35 @@ import tester from './tester.js';
 // instead of just extracting code into functions, maybe should extract the function into setup?
 // if a function is calling another function without it having been passed in, that is a side effect
 
-// first, test when customInputs feature is missing.
-//  should work fine since the flag is off
-// if customInputs: true, but no tests have been found - report issue
-// if customInputs: true, but some tests fail - report issue, turn off flag
-
 const featureFlags = {
   main: true,
-  customInputs: false
+  customInputs: true
 };
 const features = await importer.importFeatures(featureFlags);
 const results = await tester.runPrelaunchTests(features);
-console.log('testResults:', results);
-if (results.pass) launch();
-// turn off failing features, run tests again
+console.log('TestResults:', results); // log results
 
-function launch() {
+// TODO refactor
+if (results.pass) launch(features);
+else {
+  // should check if results.pass is false or null before deleting.
+  // will do nothing if no features anyway
+  delete results.pass;
+  const isolatedFeatureFlags = {};
+  for (const featureName in results) isolatedFeatureFlags[featureName] = results[featureName].pass;
+  const isolatedFeatures = await importer.importFeatures(isolatedFeatureFlags);
+  const isolatedResults = await tester.runPrelaunchTests(isolatedFeatures);
+  console.log('IsolatedTestResults:', isolatedResults); // log results
+  if (isolatedResults.pass) launch(isolatedFeatures);
+  // if isolatedResults fail, should break loudly
+}
+
+function launch(features) {
   const SIZE = 100;
   const DIV1 = 3;
   const DIV2 = 5;
   outputFizzBuzz(features.main.fizzBuzz.solveFizzBuzz(SIZE, DIV1, DIV2));
+  // will need to deal with dots
 }
 
 // IO function - output to user!

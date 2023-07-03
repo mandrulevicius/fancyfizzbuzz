@@ -2,7 +2,7 @@
 
 import fs from 'fs';
 
-// IO function - file system!
+// uses IO function
 async function importFeatures(featureFlags) {
   const features = {};
   for (const name in featureFlags) if (featureFlags[name] === true) features[name] = {};
@@ -10,6 +10,7 @@ async function importFeatures(featureFlags) {
   return features;
 }
 
+// IO function - file system!
 async function importFiles(name) {
   const feature = {};
   const fileNames = fs.readdirSync(`./features/${name}`);
