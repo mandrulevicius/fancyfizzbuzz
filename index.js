@@ -24,7 +24,7 @@ async function init() {
 
 async function run(featureFlags) {
   const features = await importer.importFeatures(featureFlags);
-  logAllFunctions(features);
+  //logAllFunctions(features);
   const results = await tester.runPrelaunchTests(features);
   console.log('TestResults:', results); // log results
   if (results.pass) launch(features);
@@ -43,27 +43,4 @@ function launch(features) {
 // IO function - output to user!
 function outputFizzBuzz(outputList) {
   console.log(outputList);
-}
-
-// logger - doesnt work, need to get functions separately. probably from features.
-function logAllFunctions(features) {
-  // if logger goes through all functions, and tester goes through all functions
-  // maybe should extract logic for going through all functions...
-  for (const name in features) {
-    for (const fileName in features[name]) {
-      for (const functionName in features[name][fileName]) {
-        // if readonly is the issue, should just move to another object...
-        // maybe should be doing this when importing?
-        features[name][fileName][functionName] = function (...args) {
-          console.log(`Calling ${key} with arguments:`, args);
-          // TODO keep in array, async flush
-          // or not keep at all, depending on what logging level is enabled?
-          // should functions themselves declare what logging level they should be using?
-          const result = originalFunction.apply(this, args);
-          console.log(`${key} result:`, result);
-          return result;
-        };
-      }
-    }
-  }
 }
