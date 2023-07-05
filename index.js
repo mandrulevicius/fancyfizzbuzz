@@ -14,21 +14,19 @@ await init();
 
 async function init() {
   const results = await run(featureFlags.get());
-  if (results.pass) return;
+  if (results.pass) return; // dont like this repeating if
   console.log('Some tests failed, isolating passing features');
   const isolatedFeatureFlags = featureFlags.extractIsolated(results);
-  console.log('isolatedFeatureFlags', isolatedFeatureFlags)
-  const isolatedResults = run(isolatedFeatureFlags);
+  const isolatedResults = await run(isolatedFeatureFlags);
   if (!isolatedResults.pass) return console.log('ISOLATED FEATURES DID NOT PASS TESTS!');
 }
 
 async function run(featureFlags) {
   const features = await importer.importFeatures(featureFlags);
-  //logAllFunctions(features);
   const results = await tester.runPrelaunchTests(features);
   console.log('TestResults:', results); // log results
-  if (results.pass) launch(features);
-  return results.pass;
+  if (results.pass) launch(features); // dont like this repeating if
+  return results;
 }
 // will need to deal with console logs
 
