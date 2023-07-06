@@ -60,6 +60,7 @@ function isEqual(value1, value2) {
   if (typeof value1 === 'object') return areObjectsDeepEqual(value1, value2); // RECURSION!
   // if here, something is very wrong and should break?
 }
+// can i avoid recursion by splitting up the function?
 
 function areObjectsDeepEqual(object1, object2) {
   if (Array.isArray(object1) && Array.isArray(object2)) {

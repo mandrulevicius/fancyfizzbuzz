@@ -1,8 +1,14 @@
 'use strict';
 
-import featureFlags from './featureFlags.js';
-import importer from './importer.js';
-import tester from './tester.js';
+import logger from './logger.js';
+import featureFlagsFile from './featureFlags.js';
+import importerFile from './importer.js';
+import testerFile from './tester.js';
+
+const featureFlags = logger.attach(featureFlagsFile);
+const importer = logger.attach(importerFile);
+const tester = logger.attach(testerFile);
+
 // REMINDER - COMMIT MORE OFTEN
 
 // instead of just extracting code into functions, maybe should extract the function into setup?
@@ -42,3 +48,6 @@ function launch(features) {
 function outputFizzBuzz(outputList) {
   console.log(outputList);
 }
+
+// how would fizzbuzz as a standalone module look like?
+// should still use other modules like testframework.
