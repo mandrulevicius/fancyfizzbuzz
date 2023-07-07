@@ -21,7 +21,6 @@ await init();
 async function init() {
   const results = await run(featureFlags.get());
   if (results.pass) return; // dont like this repeating if
-  console.log('Some tests failed, isolating passing features');
   const isolatedFeatureFlags = featureFlags.extractIsolated(results);
   const isolatedResults = await run(isolatedFeatureFlags);
   if (!isolatedResults.pass) return console.log('ISOLATED FEATURES DID NOT PASS TESTS!');
@@ -30,7 +29,6 @@ async function init() {
 async function run(featureFlags) {
   const features = await importer.importFeatures(featureFlags);
   const results = await tester.runPrelaunchTests(features);
-  console.log('TestResults:', results); // log results
   if (results.pass) launch(features); // dont like this repeating if
   return results;
 }
@@ -46,7 +44,8 @@ function launch(features) {
 
 // IO function - output to user!
 function outputFizzBuzz(outputList) {
-  console.log(outputList);
+  // only need to output to user - dev already sees result from logs
+  // console.log(outputList);
 }
 
 // how would fizzbuzz as a standalone module look like?

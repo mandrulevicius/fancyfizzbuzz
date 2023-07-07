@@ -1,6 +1,11 @@
 'use strict';
 
 // only logs public functions
+// to log all, might want to try metaprogramming
+
+const logs = [
+  { main: {fizzBuzz: {solveFizzBuzz:{toFizzBuzz: [100, 3, 5]}}} },
+]; // this seems ugly. see what others have already done regarding this.
 
 function attach(jsFile) {
   const jsFileWithLogger = {};
@@ -28,5 +33,7 @@ function addLogger(func) {
 
 // how to determine function depth?
 // maybe easier if not outputting directly to console
+
+// TODO log which feature the function belongs to
 
 export default { attach };
