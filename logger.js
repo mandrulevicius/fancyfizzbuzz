@@ -4,17 +4,22 @@
 // to log all, might want to try metaprogramming
 
 const logs = [
-  { main: {fizzBuzz: {solveFizzBuzz:{toFizzBuzz: [100, 3, 5]}}} },
+  { main: { fizzBuzz: { solveFizzBuzz: { args: [100, 3, 5], result: 'res'}}}},
+  { main: { fizzBuzz: { solveFizzBuzz: { toFizzBuzz: { args:[100, 3, 5], result: 'ok'}}}} },
 ]; // this seems ugly. see what others have already done regarding this.
+// what if solveFizzBuzz calls a function from another file?
+// have to choose how to structure logs - either by file structure or call stack
 
-function attach(jsFile) {
+function attach(jsFile, fileName, featureName) {
   const jsFileWithLogger = {};
   for (const funcName in jsFile) jsFileWithLogger[funcName] = addLogger(jsFile[funcName]);
   return jsFileWithLogger;
 }
 
-function addLogger(func) {
+function addLogger(func, fileName, featureName) {
   if (func.constructor.name === 'AsyncFunction') return async function(...args) {
+    logs.push([featureName][fileName][func.name].args = args);
+    // TODO FIX
     console.log(`Calling ${func.name} with arguments:`, args);
     const result = await func.apply(this, args);
     console.log(`${func.name} result:`, result);
@@ -33,6 +38,8 @@ function addLogger(func) {
 
 // how to determine function depth?
 // maybe easier if not outputting directly to console
+// should determine at run time - if one log function is not finished running
+// how about async calls?
 
 // TODO log which feature the function belongs to
 

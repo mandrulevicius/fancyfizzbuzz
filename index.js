@@ -32,7 +32,6 @@ async function run(featureFlags) {
   if (results.pass) launch(features); // dont like this repeating if
   return results;
 }
-// will need to deal with console logs
 
 function launch(features) {
   const SIZE = 100;
