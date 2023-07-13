@@ -18,7 +18,8 @@ async function importFiles(name) {
   const jsFileNames = fileNames.filter(fileName => fileName.endsWith('.js'));
   for (const jsFileName of jsFileNames) {
     const jsFile = await import(`./features/${name}/${jsFileName}`);
-    feature[truncExtension(jsFileName, '.js')] = logger.attach(jsFile);
+    const fileName = truncExtension(jsFileName, '.js');
+    feature[fileName] = logger.attach(jsFile, fileName, name);
   }
   return feature;
 }

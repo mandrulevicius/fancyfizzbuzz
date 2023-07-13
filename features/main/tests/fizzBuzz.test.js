@@ -2,6 +2,7 @@
 
 const tests = {};
 
+// how to better link these to actual code?
 tests.solveFizzBuzz = [{ args: [16, 3, 5], expectedResult: [
   '1', '2', 'Fizz', '4', 'Buzz',
   'Fizz', '7', '8', 'Fizz', 'Buzz',

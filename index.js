@@ -5,9 +5,9 @@ import featureFlagsFile from './featureFlags.js';
 import importerFile from './importer.js';
 import testerFile from './tester.js';
 
-const featureFlags = logger.attach(featureFlagsFile);
-const importer = logger.attach(importerFile);
-const tester = logger.attach(testerFile);
+const featureFlags = logger.attach(featureFlagsFile, 'featureFlags', 'index');
+const importer = logger.attach(importerFile, 'featureFlags', 'index');
+const tester = logger.attach(testerFile, 'featureFlags', 'index');
 
 // REMINDER - COMMIT MORE OFTEN
 
@@ -38,6 +38,7 @@ function launch(features) {
   const DIV1 = 3;
   const DIV2 = 5;
   outputFizzBuzz(features.main.fizzBuzz.solveFizzBuzz(SIZE, DIV1, DIV2));
+  console.log(JSON.stringify(logger.getLogs()));
   // will need to deal with dots
 }
 
