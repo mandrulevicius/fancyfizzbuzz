@@ -38,7 +38,7 @@ function launch(features) {
   const DIV1 = 3;
   const DIV2 = 5;
   outputFizzBuzz(features.main.fizzBuzz.solveFizzBuzz(SIZE, DIV1, DIV2));
-  console.log(JSON.stringify(logger.getLogs()));
+  console.log(logger.getLogs());
   // will need to deal with dots
 }
 
